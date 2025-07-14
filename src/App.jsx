@@ -3,7 +3,9 @@ import { useState } from 'react'
 import { languages } from './assets/languages';
 
 export default function AssemblyEndgame() {
-    const [currentWord, setCurrentWord] = useState("react")
+    const [currentWord, setCurrentWord] = useState("react");
+    const [guessedLetters, setGuessedLetters] = useState([]);
+    console.log(guessedLetters);
 
     const langElements = languages.map((language) => {
         const styles = {
@@ -20,8 +22,17 @@ export default function AssemblyEndgame() {
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
     const keyboardElements = alphabet.split("").map((letter) => {
-        return (<button key={letter} className="keyboard-letter">{letter}</button>)
+        return (
+            <button
+                key={letter}
+                className="keyboard-letter"
+                onClick={() => { addGuessedLetter(letter) }}>{letter}</button>
+        )
     });
+
+    function addGuessedLetter(letter) {
+        setGuessedLetters(prevLetters => prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]);
+    };
 
     return (
         <main>
