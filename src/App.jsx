@@ -71,7 +71,7 @@ export default function AssemblyEndgame() {
             <section className="keyboard">
                 {keyboardElements}
             </section>
-            {isGameLost && <button className="new-game-btn">New Game</button>}
+            {isGameOver && <button className="new-game-btn">New Game</button>}
         </main>
     )
 }
