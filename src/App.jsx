@@ -1,11 +1,11 @@
 import React from 'react';
+import {clsx} from 'clsx';
 import { useState } from 'react'
 import { languages } from './assets/languages';
 
 export default function AssemblyEndgame() {
     const [currentWord, setCurrentWord] = useState("react");
     const [guessedLetters, setGuessedLetters] = useState([]);
-    console.log(guessedLetters);
 
     const langElements = languages.map((language) => {
         const styles = {
@@ -22,15 +22,23 @@ export default function AssemblyEndgame() {
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
     const keyboardElements = alphabet.split("").map((letter) => {
+        const isGuessed = guessedLetters.includes(letter);
+        const isCorrect = isGuessed && currentWord.includes(letter);
+        const isWrong = isGuessed && !currentWord.includes(letter);
+        const className = clsx({
+            correct: isCorrect,
+            wrong: isWrong
+        })
+        
         return (
             <button
+                className={className}
                 key={letter}
-                className="keyboard-letter"
                 onClick={() => { addGuessedLetter(letter) }}>{letter}</button>
         )
     });
-
-    function addGuessedLetter(letter) {
+    
+    function addGuessedLetter(letter) {        
         setGuessedLetters(prevLetters => prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]);
     };
 

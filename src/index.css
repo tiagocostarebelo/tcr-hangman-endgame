@@ -103,7 +103,7 @@ header>p {
     gap: 0.35rem;
 }
 
-.keyboard-letter {
+.keyboard>button {
     width: 30px;
     height: 30px;
     background-color: #ffc900;
@@ -113,6 +113,14 @@ header>p {
     font-size: 1rem;
     text-transform: capitalize;
     cursor: pointer;
+}
+
+.keyboard>button.correct {
+    background-color: #10A95B;
+}
+
+.keyboard>button.wrong {
+    background-color: #EC5D49;
 }
 
 .new-game-btn {
