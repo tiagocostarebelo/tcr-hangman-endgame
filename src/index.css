@@ -41,16 +41,23 @@ header>p {
 }
 
 .game-status {
-    background-color: #10A95B;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 1rem;
     color: #F9F4DA;
     border-radius: 5px;
+    min-height: 60px;
     max-width: 350px;
     margin: 2rem auto;
+}
+
+.game-status.won {
+    background-color: #10A95B;
+}
+
+.game-status.lost {
+    background-color: #BA2A2A;
 }
 
 .game-status>h2 {

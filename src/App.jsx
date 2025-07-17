@@ -51,6 +51,10 @@ export default function AssemblyEndgame() {
         setGuessedLetters(prevLetters => prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]);
     };
     
+    const gameStatusClass = clsx("game-status", {
+        won: isGameWon,
+        lost: isGameLost
+    })
 
     return (
         <main>
@@ -58,9 +62,23 @@ export default function AssemblyEndgame() {
                 <h1>Hangman: Assembly Endgame</h1>
                 <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p>
             </header>
-            <section className='game-status'>
-                <h2>You win!</h2>
-                <p>Well done!</p>
+            <section className={gameStatusClass}>
+            {   isGameOver ? (
+                    isGameWon ? (
+                        <>
+                            <h2>You win!</h2>
+                            <p>Well done!</p>
+                        </>
+                    ) : ( 
+                        <>
+                            <h2>Game Over!</h2>
+                            <p>You lose! Better luck next time!</p>
+                        </>
+                     )
+                ) : (
+                    null
+                )
+            }
             </section>
             <section className='language-chips'>
                 {langElements}
