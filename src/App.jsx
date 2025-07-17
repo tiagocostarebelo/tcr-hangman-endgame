@@ -25,6 +25,8 @@ export default function AssemblyEndgame() {
         return (<span className="letter" key={index}>{guessedLetters.includes(letter) ? upperCaseLetter : ""}</span>)
     });
 
+    const gameOver = wrongGuessCount === langElements.length - 1;
+
     const alphabet = "abcdefghijklmnopqrstuvwxyz";
     const keyboardElements = alphabet.split("").map((letter) => {
         const isGuessed = guessedLetters.includes(letter);
@@ -46,6 +48,7 @@ export default function AssemblyEndgame() {
     function addGuessedLetter(letter) {        
         setGuessedLetters(prevLetters => prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]);
     };
+    
 
     return (
         <main>
@@ -66,7 +69,7 @@ export default function AssemblyEndgame() {
             <section className="keyboard">
                 {keyboardElements}
             </section>
-            <button className="new-game-btn">New Game</button>
+            {gameOver && <button className="new-game-btn">New Game</button>}
         </main>
     )
 }
