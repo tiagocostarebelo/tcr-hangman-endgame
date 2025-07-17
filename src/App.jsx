@@ -7,6 +7,8 @@ export default function AssemblyEndgame() {
     const [currentWord, setCurrentWord] = useState("react");
     const [guessedLetters, setGuessedLetters] = useState([]);
 
+    const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
+
     const langElements = languages.map((language) => {
         const styles = {
             backgroundColor: language.backgroundColor,
@@ -17,10 +19,11 @@ export default function AssemblyEndgame() {
 
     const letterElements = currentWord.split("").map((letter, index) => {
         const upperCaseLetter = letter.toUpperCase();
-        return (<span className="letter" key={index}>{upperCaseLetter}</span>)
+        
+        return (<span className="letter" key={index}>{guessedLetters.includes(letter) ? upperCaseLetter : ""}</span>)
     });
 
-    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    const alphabet = "abcdefghijklmnopqrstuvwxyz";
     const keyboardElements = alphabet.split("").map((letter) => {
         const isGuessed = guessedLetters.includes(letter);
         const isCorrect = isGuessed && currentWord.includes(letter);
@@ -29,7 +32,7 @@ export default function AssemblyEndgame() {
             correct: isCorrect,
             wrong: isWrong
         })
-        
+
         return (
             <button
                 className={className}
