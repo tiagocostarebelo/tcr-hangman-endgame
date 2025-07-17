@@ -27,7 +27,7 @@ export default function AssemblyEndgame() {
 
     const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter));
     const isGameLost = wrongGuessCount === langElements.length - 1;
-    const isGameOver = isGameOne || isGameLost;
+    const isGameOver = isGameWon || isGameLost;
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz";
     const keyboardElements = alphabet.split("").map((letter) => {
