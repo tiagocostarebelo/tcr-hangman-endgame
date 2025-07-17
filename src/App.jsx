@@ -9,12 +9,14 @@ export default function AssemblyEndgame() {
 
     const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
 
-    const langElements = languages.map((language) => {
+    const langElements = languages.map((language, index) => {
+        const isLost = index < wrongGuessCount;
         const styles = {
             backgroundColor: language.backgroundColor,
             color: language.color
         }
-        return (<span className="chip" style={styles} key={language.name}>{language.name}</span>)
+        const className = clsx("chip", isLost && "lost")
+        return (<span className={className} style={styles} key={language.name}>{language.name}</span>)
     });
 
     const letterElements = currentWord.split("").map((letter, index) => {
