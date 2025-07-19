@@ -1,5 +1,5 @@
 import React from 'react';
-import {clsx} from 'clsx';
+import { clsx } from 'clsx';
 import { useState } from 'react'
 import { languages } from './assets/languages';
 
@@ -21,7 +21,7 @@ export default function AssemblyEndgame() {
 
     const letterElements = currentWord.split("").map((letter, index) => {
         const upperCaseLetter = letter.toUpperCase();
-        
+
         return (<span className="letter" key={index}>{guessedLetters.includes(letter) ? upperCaseLetter : ""}</span>)
     });
 
@@ -46,15 +46,36 @@ export default function AssemblyEndgame() {
                 onClick={() => { addGuessedLetter(letter) }}>{letter}</button>
         )
     });
-    
-    function addGuessedLetter(letter) {        
+
+    function addGuessedLetter(letter) {
         setGuessedLetters(prevLetters => prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]);
     };
-    
+
     const gameStatusClass = clsx("game-status", {
         won: isGameWon,
         lost: isGameLost
-    })
+    });
+
+    function renderGameStatus() {
+        if (!isGameOver) {
+            return null;
+        }
+        if (isGameWon) {
+            return (
+                <>
+                    <h2>You Win!</h2>
+                    <p>Well Done!</p>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <h2>You Lost!</h2>
+                    <p>Keep trying! Better luck next time!</p>
+                </>
+            )
+        }
+    }
 
     return (
         <main>
@@ -63,22 +84,7 @@ export default function AssemblyEndgame() {
                 <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p>
             </header>
             <section className={gameStatusClass}>
-            {   isGameOver ? (
-                    isGameWon ? (
-                        <>
-                            <h2>You win!</h2>
-                            <p>Well done!</p>
-                        </>
-                    ) : ( 
-                        <>
-                            <h2>Game Over!</h2>
-                            <p>You lose! Better luck next time!</p>
-                        </>
-                     )
-                ) : (
-                    null
-                )
-            }
+                {renderGameStatus()}
             </section>
             <section className='language-chips'>
                 {langElements}
