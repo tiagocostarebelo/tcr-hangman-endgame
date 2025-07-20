@@ -60,12 +60,23 @@ header>p {
     background-color: #BA2A2A;
 }
 
+.game-status.farewell {
+    background-color: #7A5EA7;
+    border: 1px dashed #323232;
+}
+
 .game-status>h2 {
     font-size: 1.25rem;
 }
 
 .game-status>p {
     font-size: 0.875rem;
+}
+
+.game-status>p.farewell-message {
+    font-size: 0.875rem;
+    font-style: italic;
+    font-weight: 400;
 }
 
 .language-chips {
@@ -84,7 +95,7 @@ header>p {
     position: relative;
 }
 
-.language-chips>.chip.lost::before{
+.language-chips>.chip.lost::before {
     content: "💀";
     position: absolute;
     display: flex;
@@ -95,7 +106,7 @@ header>p {
     font-size: 0.85rem;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
 
 }
 
