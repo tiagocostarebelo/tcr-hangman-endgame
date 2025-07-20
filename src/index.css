@@ -160,6 +160,11 @@ header>p {
     background-color: #EC5D49;
 }
 
+.keyboard>button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
 .new-game-btn {
     width: 100%;
     max-width: 250px;
