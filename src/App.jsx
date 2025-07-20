@@ -46,6 +46,7 @@ export default function AssemblyEndgame() {
             <button
                 className={className}
                 key={letter}
+                disabled={isGameOver}
                 onClick={() => { addGuessedLetter(letter) }}>{letter}</button>
         )
     });
@@ -64,9 +65,7 @@ export default function AssemblyEndgame() {
         if (!isGameOver && isLastGuessIncorrect) {
             return (
                 <>
-
                     <p className="farewell-message">{getFarewellText(languages[wrongGuessCount - 1].name)}</p>
-
                 </>
             )
         }
