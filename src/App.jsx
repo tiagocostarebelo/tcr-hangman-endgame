@@ -8,6 +8,7 @@ export default function AssemblyEndgame() {
     const [currentWord, setCurrentWord] = useState("react");
     const [guessedLetters, setGuessedLetters] = useState([]);
 
+    const numGuessesLeft = languages.length - 1;
     const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
 
     const langElements = languages.map((language, index) => {
@@ -47,6 +48,7 @@ export default function AssemblyEndgame() {
                 className={className}
                 key={letter}
                 disabled={isGameOver}
+                aria-label={`Letter ${letter}`}
                 onClick={() => { addGuessedLetter(letter) }}>{letter}</button>
         )
     });
@@ -95,7 +97,7 @@ export default function AssemblyEndgame() {
                 <h1>Hangman: Assembly Endgame</h1>
                 <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p>
             </header>
-            <section className={gameStatusClass}>
+            <section aria-live="polite" role="status" className={gameStatusClass}>
                 {renderGameStatus()}
             </section>
             <section className='language-chips'>
@@ -103,6 +105,13 @@ export default function AssemblyEndgame() {
             </section>
             <section className="word-box">
                 {letterElements}
+            </section>
+            {/* Combined visually-hidden aria-live region for status updates */}
+            <section className="sr-only" aria-live="polite" aria-role="status">
+                <p>{currentWord.includes(lastGuessedLetter) ? `Correct! The letter ${lastGuessedLetter} is in the word` : `Sorry, the letter ${lastGuessedLetter} is not in the word.`}
+                    You have {numGuessesLeft} attempts left.
+                </p>
+                <p>Current word: {currentWord.split("").map(letter => guessedLetters.includes(letter) ? letter + "." : "blank").join(" ")}</p>
             </section>
             <section className="keyboard">
                 {keyboardElements}
