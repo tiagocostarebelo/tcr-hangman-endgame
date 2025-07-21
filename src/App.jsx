@@ -11,6 +11,8 @@ export default function AssemblyEndgame() {
 
     const numGuessesLeft = languages.length - 1;
     const wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length;
+    const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter));
+
 
     const langElements = languages.map((language, index) => {
         const isLost = index < wrongGuessCount;
@@ -22,17 +24,21 @@ export default function AssemblyEndgame() {
         return (<span className={className} style={styles} key={language.name}>{language.name}</span>)
     });
 
-    const letterElements = currentWord.split("").map((letter, index) => {
-        const upperCaseLetter = letter.toUpperCase();
-
-        return (<span className="letter" key={index}>{guessedLetters.includes(letter) ? upperCaseLetter : ""}</span>)
-    });
-
-    const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter));
     const isGameLost = wrongGuessCount === langElements.length - 1;
     const isGameOver = isGameWon || isGameLost;
     const lastGuessedLetter = guessedLetters[guessedLetters.length - 1];
     const isLastGuessIncorrect = lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
+
+    const letterElements = currentWord.split("").map((letter, index) => {
+        const upperCaseLetter = letter.toUpperCase();
+        const shouldRevealLetter = isGameLost || guessedLetters.includes(letter);
+        const letterClassName = clsx("letter",
+            isGameLost && !guessedLetters.includes(letter) && "missed-letter"
+        )
+        return (<span className={letterClassName} key={index}>{shouldRevealLetter ? upperCaseLetter : ""}</span>)
+    });
+
+
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz";
     const keyboardElements = alphabet.split("").map((letter) => {
@@ -90,6 +96,11 @@ export default function AssemblyEndgame() {
         }
 
         return null;
+    };
+
+    function startNewGame() {
+        setCurrentWord(randomWord());
+        setGuessedLetters([]);
     }
 
     return (
@@ -117,7 +128,7 @@ export default function AssemblyEndgame() {
             <section className="keyboard">
                 {keyboardElements}
             </section>
-            {isGameOver && <button className="new-game-btn">New Game</button>}
+            {isGameOver && <button className="new-game-btn" onClick={startNewGame}>New Game</button>}
         </main>
     )
 }
