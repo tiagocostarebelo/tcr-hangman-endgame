@@ -3,6 +3,7 @@ import { clsx } from 'clsx';
 import { useState } from 'react'
 import { languages } from './assets/languages';
 import { getFarewellText, randomWord } from './assets/utils';
+import Confetti from 'react-confetti';
 
 
 export default function AssemblyEndgame() {
@@ -105,6 +106,13 @@ export default function AssemblyEndgame() {
 
     return (
         <main>
+            {
+                isGameWon &&
+                <Confetti
+                    recycle={false}
+                    numberOfPieces={1000}
+                />
+            }
             <header>
                 <h1>Hangman: Assembly Endgame</h1>
                 <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p>
