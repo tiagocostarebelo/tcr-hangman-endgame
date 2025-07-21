@@ -2,10 +2,11 @@ import React from 'react';
 import { clsx } from 'clsx';
 import { useState } from 'react'
 import { languages } from './assets/languages';
-import { getFarewellText } from './utils';
+import { getFarewellText, randomWord } from './assets/utils';
+
 
 export default function AssemblyEndgame() {
-    const [currentWord, setCurrentWord] = useState("react");
+    const [currentWord, setCurrentWord] = useState(() => randomWord());
     const [guessedLetters, setGuessedLetters] = useState([]);
 
     const numGuessesLeft = languages.length - 1;
@@ -107,7 +108,7 @@ export default function AssemblyEndgame() {
                 {letterElements}
             </section>
             {/* Combined visually-hidden aria-live region for status updates */}
-            <section className="sr-only" aria-live="polite" aria-role="status">
+            <section className="sr-only" aria-live="polite" role="status">
                 <p>{currentWord.includes(lastGuessedLetter) ? `Correct! The letter ${lastGuessedLetter} is in the word` : `Sorry, the letter ${lastGuessedLetter} is not in the word.`}
                     You have {numGuessesLeft} attempts left.
                 </p>
